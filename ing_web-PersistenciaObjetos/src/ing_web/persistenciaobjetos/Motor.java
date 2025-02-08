@@ -4,14 +4,19 @@
  */
 package ing_web.persistenciaobjetos;
 
-/**
- *
- * @author RICARDO VG LAPTOPS
- */
-public class Motor {
+import java.io.Serializable;
+
+
+public class Motor implements Serializable{
+    private String numSerie;
+    private Boolean puedeEncender;
     
+    public Motor(String numSerie){
+        this.numSerie = numSerie;
+        this.puedeEncender = true;
+    }
     
-    public Motor(){
-        
+    public boolean puedeEncender(){
+        return puedeEncender;
     }
 }

@@ -4,10 +4,7 @@
  */
 package ing_web.persistenciaobjetos;
 
-/**
- *
- * @author RICARDO VG LAPTOPS
- */
+
 public class Ing_webPersistenciaObjetos {
 
     /**

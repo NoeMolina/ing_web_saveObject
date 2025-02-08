@@ -4,16 +4,19 @@
  */
 package ing_web.persistenciaobjetos;
 
-/**
- *
- * @author RICARDO VG LAPTOPS
- */
-public class Auto {
+import java.io.Serializable;
+
+public class Auto implements Serializable{
     private Motor motor;
-    private float gasolina;
     private boolean encendido;
+    private String Marca;
+    private String Modelo;
+    private String Placas;
     
-    public Auto(){
-        
+    public Auto(String Marca, String Modelo, String Placas){
+        this.Marca = Marca;
+        this.Modelo = Modelo;
+        this.Placas = Placas;
+        this.motor = new Motor();
     }
 }
