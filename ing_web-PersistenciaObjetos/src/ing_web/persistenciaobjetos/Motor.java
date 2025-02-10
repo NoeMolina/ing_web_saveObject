@@ -19,4 +19,8 @@ public class Motor implements Serializable{
     public boolean puedeEncender(){
         return puedeEncender;
     }
+    
+    public String getPlacas(){
+        return numSerie;
+    }
 }

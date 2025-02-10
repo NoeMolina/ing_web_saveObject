@@ -17,6 +17,13 @@ public class Auto implements Serializable{
         this.Marca = Marca;
         this.Modelo = Modelo;
         this.Placas = Placas;
-        this.motor = new Motor();
+        this.motor = new Motor(Placas);
     }
+
+    @Override
+    public String toString() {
+        return ("Auto con placas "+ this.Placas + "con motor "+ motor.getPlacas());
+    }
+    
+    
 }
