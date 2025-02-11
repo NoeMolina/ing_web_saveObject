@@ -1,7 +1,11 @@
 /*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
+NOMBRE: MOLINA LEON NOE MARCELINO
+N.CONTROL: 20170752
+MATERIA: INGENIERIA WEB
+TEMA: PERSISTENCIA DE OBJETOS CON AGREGACION y COMPOSICION
+FECHA: 10/02/2025
+DOCENTE: DR.CLEMENTE GARCIA GERARDO
+*/
 package ing_web.persistenciaobjetos;
 
 import java.io.Serializable;

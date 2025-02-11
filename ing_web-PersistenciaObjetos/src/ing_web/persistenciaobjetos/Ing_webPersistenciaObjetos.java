@@ -1,11 +1,16 @@
 /*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Main.java to edit this template
+NOMBRE: MOLINA LEON NOE MARCELINO
+N.CONTROL: 20170752
+MATERIA: INGENIERIA WEB
+TEMA: PERSISTENCIA DE OBJETOS CON AGREGACION y COMPOSICION
+FECHA: 10/02/2025
+DOCENTE: DR.CLEMENTE GARCIA GERARDO
  */
 package ing_web.persistenciaobjetos;
 
 import agregacion.Animal;
 import agregacion.Zoologico;
+import java.io.EOFException;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
@@ -26,75 +31,41 @@ si no se realiza lo anterior el archivo se corrompe.
  */
 public class Ing_webPersistenciaObjetos {
 
-    static void escribirAutos() {
-        boolean fileExists = new File("Autos.txt").exists();
-        Random r = new Random();
+    static void writeObject(Object obj, String filePath) {
+        boolean fileExists = new File(filePath).exists();
         try {
 
-            OutputStream writer = new FileOutputStream("Autos.txt");
-            ObjectOutputStream obWriter = new ObjectOutputStream(writer);
-
-            for (int i = 0; i < 10; i++) {
-                String numSerie = Integer.toString(r.nextInt(10));
-                Auto auto = new Auto(numSerie, numSerie, numSerie);
-                obWriter.writeObject(auto);
+            FileOutputStream writer = new FileOutputStream(filePath, true);
+            ObjectOutputStream obWriter;
+            if (!fileExists) {
+                obWriter = new ObjectOutputStream(writer);
+            } else {
+                obWriter = new AppendObjectOutputStream(writer);
             }
+            obWriter.writeObject(obj);
+
         } catch (Exception e) {
             System.out.println("Error al guardar el Objeto" + e);
         }
     }
 
-    static void leerAutos() {
+    static void readObjet(String filePath) {
         boolean cont = true;
+        Object obj;
         try {
-            InputStream reader = new FileInputStream("Autos.txt");
+            InputStream reader = new FileInputStream(filePath);
             ObjectInputStream obReader = new ObjectInputStream(reader);
 
             while (cont) {
-                Auto auto = (Auto) obReader.readObject();
-                if (auto != null) {
-                    System.out.println(auto.toString());
+                obj = obReader.readObject();
+                if (obj != null) {
+                    System.out.println(obj.toString());
                 } else {
                     cont = false;
                 }
             }
-
-        } catch (Exception e) {
-            System.out.println("Error al recuperar el Objeto " + e);
-        }
-
-    }
-
-    static void escribirZoologico() {
-        Animal a1 = new Animal("Leon");
-        Animal a2 = new Animal("Elefante");
-        Animal a3 = new Animal("Jirafa");
-        Animal a4 = new Animal("hipopotamos");
-
-        Zoologico zoo = new Zoologico("chapultepec", a1, a2, a3, a4);
-
-        System.out.println(zoo.toString());
-        try {
-
-            OutputStream writer = new FileOutputStream("Zoologico.txt");
-            ObjectOutputStream obWriter = new ObjectOutputStream(writer);
-            obWriter.writeObject(zoo);
-
-        } catch (Exception e) {
-            System.out.println("Error al guardar el Objeto" + e);
-        }
-
-    }
-
-    static void leerZoologico() {
-        try {
-            InputStream reader = new FileInputStream("Zoologico.txt");
-            ObjectInputStream obReader = new ObjectInputStream(reader);
-
-            Zoologico zoo = (Zoologico) obReader.readObject();
-
-            System.out.println(zoo.toString());
-
+        } catch (EOFException e) {
+            System.out.println("Se completo la lectura del archivo");
         } catch (Exception e) {
             System.out.println("Error al recuperar el Objeto " + e);
         }
@@ -102,17 +73,36 @@ public class Ing_webPersistenciaObjetos {
 
     public static void main(String[] args) {
         //Escribir autos
-//        Random r = new Random();
-//        for (int i = 0; i < 10; i++) {
-//            escribirAutos(Integer.toString(r.nextInt(10)));
-//        }
-//        escribirAutos();
+        Random r = new Random();
+        Auto auto;
+        for (int i = 0; i < 10; i++) {
+            auto = new Auto(Integer.toString(r.nextInt(10)), Integer.toString(r.nextInt(10)), Integer.toString(r.nextInt(10)));
+            //writeObject(auto, "Autos.txt");
+        }
         //leer autos;
-//        leerAutos();
+        readObjet("Autos.txt");
 
-        escribirZoologico();
+        //escribir zoologico;
+        Animal[] animales = {
+            new Animal("Leon"),
+            new Animal("Tigre"),
+            new Animal("Elefante"),
+            new Animal("Jirafa"),
+            new Animal("Hipopotamo"),
+            new Animal("Cebra"),
+            new Animal("Oso"),
+            new Animal("Lobo"),
+            new Animal("Cocodrilo"),
+            new Animal("Puma")
+        };
+        Zoologico zoo;
+        for (int i = 0; i < 10; i++) {
+            zoo = new Zoologico("zoo" + i, animales[r.nextInt(10)], animales[r.nextInt(10)], animales[r.nextInt(10)]);
+            //writeObject(zoo, "Zoologico.txt");
+        }
 
-        leerZoologico();
+        //leerZoologico
+        readObjet("Zoologico.txt");
     }
 
 }
